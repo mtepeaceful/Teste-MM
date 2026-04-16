@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import {
+  findDestinationByQuery,
   findAllDestinations,
   insertDestination,
   removeDestinationByQuery,
@@ -18,6 +19,23 @@ function normalizeCity(city) {
 
 export async function listDestinations() {
   return findAllDestinations()
+}
+
+export async function getDestinationById(id) {
+  if (!id) {
+    const error = new Error('Informe o id do destino.')
+    error.statusCode = 400
+    throw error
+  }
+
+  const destination = await findDestinationByQuery({ id })
+  if (!destination) {
+    const error = new Error('Destino nao encontrado.')
+    error.statusCode = 404
+    throw error
+  }
+
+  return destination
 }
 
 export async function createDestination(city) {
@@ -96,6 +114,13 @@ export async function reorderDestinations(ids) {
 
   const destinations = await findAllDestinations()
   const destinationMap = new Map(destinations.map((destination) => [destination.id, destination]))
+  const uniqueIds = new Set(ids)
+
+  if (ids.length !== destinations.length || uniqueIds.size !== ids.length) {
+    const error = new Error('A lista de destinos deve conter todos os itens, sem repeticao.')
+    error.statusCode = 400
+    throw error
+  }
 
   if (ids.some((id) => !destinationMap.has(id))) {
     const error = new Error('A lista de destinos contem itens invalidos.')

@@ -3,13 +3,17 @@ import {
   createDestinationHandler,
   deleteDestinationHandler,
   editDestinationHandler,
+  getDestinationByIdHandler,
   listDestinationsHandler,
   reorderDestinationsHandler
 } from '../controllers/destinationController.js'
 import { routeLegHandler, routeSummaryHandler } from '../controllers/routeController.js'
 
 const router = Router()
+router.get('/destinations/:id', getDestinationByIdHandler)
 router.get('/destinations', listDestinationsHandler)
+
+
 router.post('/destinations', createDestinationHandler)
 router.put('/destinations/reorder', reorderDestinationsHandler)
 router.put('/destinations/:id', editDestinationHandler)

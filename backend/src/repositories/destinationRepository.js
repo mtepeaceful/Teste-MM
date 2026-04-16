@@ -1,11 +1,7 @@
 import db from '../config/database.js'
 
 export function findAllDestinations() {
-
-
   return new Promise((resolve, reject) => {
-
-    
     db.find({}).sort({ order: 1 }).exec((error, documents) => {
       if (error) {
         reject(error)
@@ -15,9 +11,19 @@ export function findAllDestinations() {
       resolve(documents)
     })
   })
+}
 
+export function findDestinationByQuery(query) {
+  return new Promise((resolve, reject) => {
+    db.findOne(query, (error, document) => {
+      if (error) {
+        reject(error)
+        return
+      }
 
-
+      resolve(document)
+    })
+  })
 }
 
 export function insertDestination(destination) {

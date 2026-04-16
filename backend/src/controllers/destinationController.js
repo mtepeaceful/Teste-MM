@@ -2,6 +2,7 @@ import {
   createDestination,
   deleteDestination,
   editDestination,
+  getDestinationById,
   listDestinations,
   reorderDestinations
 } from '../services/destinationService.js'
@@ -16,6 +17,15 @@ export async function listDestinationsHandler(req, res) {
     res.json(destinations)
   } catch (error) {
     res.status(getStatusCode(error, 500)).json({ message: 'Nao foi possivel listar os destinos.' })
+  }
+}
+
+export async function getDestinationByIdHandler(req, res) {
+  try {
+    const destination = await getDestinationById(req.params.id)
+    res.json(destination)
+  } catch (error) {
+    res.status(getStatusCode(error, 500)).json({ message: error.message || 'Nao foi possivel buscar o destino.' })
   }
 }
 
