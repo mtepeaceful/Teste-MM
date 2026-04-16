@@ -1,0 +1,254 @@
+:root {
+  color-scheme: light;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  --bg: #0f172a;
+  --bg-soft: #111c3a;
+  --card: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --accent: #f97316;
+  --accent-strong: #fb923c;
+  --danger: #fb7185;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(249, 115, 22, 0.35), transparent 34%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.22), transparent 28%),
+    linear-gradient(160deg, #081120 0%, #0f172a 55%, #111c3a 100%);
+  color: var(--text);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+input,
+select {
+  width: 100%;
+  margin-top: 0.45rem;
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  background: rgba(15, 23, 42, 0.55);
+  color: var(--text);
+}
+
+input::placeholder {
+  color: rgba(203, 213, 225, 0.65);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 1.25rem;
+  align-items: end;
+  margin-bottom: 1.25rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 4.4rem);
+  line-height: 0.95;
+  max-width: 12ch;
+}
+
+.lead {
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 1.03rem;
+  line-height: 1.6;
+}
+
+.stats-grid,
+.panel-grid,
+.destination-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.stats-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stats-grid article,
+.panel,
+.destination-item,
+.route-card,
+.alert {
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+.stats-grid article {
+  border-radius: 24px;
+  padding: 1.1rem 1.2rem;
+}
+
+.stats-grid span,
+.destination-subtitle,
+.destination-order {
+  color: var(--muted);
+}
+
+.stats-grid strong {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 1.5rem;
+}
+
+.panel-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 1rem;
+}
+
+.panel {
+  border-radius: 28px;
+  padding: 1.25rem;
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.row-actions,
+.destination-actions,
+.destination-metrics,
+.split {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.split > * {
+  flex: 1 1 220px;
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #1f1300;
+  font-weight: 700;
+}
+
+.secondary,
+.ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+
+.alert {
+  border-radius: 20px;
+  padding: 1rem 1.2rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.destination-list {
+  margin-top: 1rem;
+}
+
+.destination-item {
+  border-radius: 24px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.destination-item h3,
+.destination-item p {
+  margin: 0;
+}
+
+.destination-actions {
+  justify-content: flex-end;
+}
+
+.destination-metrics {
+  flex-direction: column;
+  text-align: right;
+  font-weight: 700;
+}
+
+.route-card {
+  margin-top: 1rem;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .panel-grid,
+  .stats-grid,
+  .destination-item {
+    grid-template-columns: 1fr;
+  }
+
+  .hero,
+  .panel-grid {
+    display: grid;
+  }
+
+  .destination-item {
+    display: grid;
+  }
+
+  .destination-actions,
+  .destination-metrics {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
