@@ -1,9 +1,13 @@
 import { createHttpError } from '../utils/httpError.js';
 
-export function requireCityBody(req, res, next) {
-  const city = req.body?.city;
-  if (typeof city !== 'string' || !city.trim()) {
-    next(createHttpError('Informe o nome do destino.', 400));
+function getDestinationInput(body) {
+  return body?.destination ?? body?.address ?? body?.city;
+}
+
+export function requireDestinationBody(req, res, next) {
+  const destinationInput = getDestinationInput(req.body);
+  if (typeof destinationInput !== 'string' || !destinationInput.trim()) {
+    next(createHttpError('Informe um destino ou endereco valido.', 400));
     return;
   }
 

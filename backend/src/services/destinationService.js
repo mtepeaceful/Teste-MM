@@ -9,12 +9,12 @@ import {
 import { geocodeQuery } from './geocodingService.js';
 import { clearRouteCache, getRouteLeg } from './routingService.js';
 
-function normalizeCity(city) {
-  if (!city || !city.trim()) {
-    throw new Error('Informe o nome do destino.');
+function normalizeDestination(destination) {
+  if (!destination || !destination.trim()) {
+    throw new Error('Informe um destino ou endereco valido.');
   }
 
-  return city.trim();
+  return destination.trim();
 }
 
 function normalizePlaceId(placeId) {
@@ -62,19 +62,19 @@ export async function getDestinationById(id) {
   return destination;
 }
 
-export async function createDestination(city, placeId) {
-  const normalizedCity = normalizeCity(city);
+export async function createDestination(destination, placeId) {
+  const normalizedDestination = normalizeDestination(destination);
   const normalizedPlaceId = normalizePlaceId(placeId);
 
   await assertNoDuplicatePlaceId(normalizedPlaceId);
 
   const destinations = await findAllDestinations();
-  const geo = await geocodeQuery(normalizedCity);
+  const geo = await geocodeQuery(normalizedDestination);
   const nowIso = new Date().toISOString();
 
-  const destination = await insertDestination({
+  const createdDestination = await insertDestination({
     id: randomUUID(),
-    city: normalizedCity,
+    city: normalizedDestination,
     placeId: normalizedPlaceId,
     label: geo.label,
     latitude: geo.latitude,
@@ -86,11 +86,11 @@ export async function createDestination(city, placeId) {
   });
 
   clearRouteCache();
-  return destination;
+  return createdDestination;
 }
 
-export async function editDestination(id, city, placeId) {
-  const normalizedCity = normalizeCity(city);
+export async function editDestination(id, destination, placeId) {
+  const normalizedDestination = normalizeDestination(destination);
   const destinations = await findAllDestinations();
   const current = destinations.find((item) => item.id === id);
 
@@ -107,10 +107,10 @@ export async function editDestination(id, city, placeId) {
 
   await assertNoDuplicatePlaceId(normalizedPlaceId, id);
 
-  const geo = await geocodeQuery(normalizedCity);
+  const geo = await geocodeQuery(normalizedDestination);
   const updatedDestination = {
     ...current,
-    city: normalizedCity,
+    city: normalizedDestination,
     placeId: normalizedPlaceId,
     label: geo.label,
     latitude: geo.latitude,

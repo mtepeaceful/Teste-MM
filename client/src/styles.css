@@ -156,7 +156,6 @@ button:disabled {
   border-radius: 8px;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
   gap: 12px;
   align-items: center;
 }
@@ -168,6 +167,25 @@ button:disabled {
 .item.drag-over {
   border: 1px dashed var(--accent);
   background: #f0f7ff;
+}
+
+.drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a3aeba;
+  cursor: grab;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.item:hover .drag-handle {
+  color: var(--accent);
+}
+
+.item-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .muted {

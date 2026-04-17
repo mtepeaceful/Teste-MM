@@ -7,6 +7,10 @@ import {
   reorderDestinations,
 } from '../services/destinationService.js';
 
+function getDestinationInput(body) {
+  return body?.destination ?? body?.address ?? body?.city;
+}
+
 export async function listDestinationsHandler(req, res) {
   const destinations = await listDestinations();
   res.json(destinations);
@@ -18,14 +22,17 @@ export async function getDestinationByIdHandler(req, res) {
 }
 
 export async function createDestinationHandler(req, res) {
-  const destination = await createDestination(req.body.city, req.body.placeId);
+  const destination = await createDestination(
+    getDestinationInput(req.body),
+    req.body.placeId
+  );
   res.status(201).json(destination);
 }
 
 export async function editDestinationHandler(req, res) {
   const updatedDestination = await editDestination(
     req.params.id,
-    req.body.city,
+    getDestinationInput(req.body),
     req.body.placeId
   );
   res.json(updatedDestination);

@@ -13,7 +13,7 @@ import {
   routeSummaryHandler,
 } from '../controllers/routeController.js';
 import {
-  requireCityBody,
+  requireDestinationBody,
   requireIdsArrayBody,
   requireDestinationIdParam,
   requireRouteQuery,
@@ -29,7 +29,7 @@ router.get('/destinations', asyncHandler(listDestinationsHandler));
 
 router.post(
   '/destinations',
-  requireCityBody,
+  requireDestinationBody,
   asyncHandler(createDestinationHandler)
 );
 router.put(
@@ -40,7 +40,7 @@ router.put(
 router.put(
   '/destinations/:id',
   requireDestinationIdParam,
-  requireCityBody,
+  requireDestinationBody,
   asyncHandler(editDestinationHandler)
 );
 router.delete(
