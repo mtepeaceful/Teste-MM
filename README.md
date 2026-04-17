@@ -1,6 +1,6 @@
-# test-mm
+# Teste-MM
 
-Projeto simples com backend em Node.js (Express) e frontend em React (Vite).
+Projeto planejador de rotas simples com backend em Node.js (Express) e frontend em React (Vite).
 
 ## Como rodar (dev)
 
