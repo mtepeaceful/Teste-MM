@@ -1,38 +1,34 @@
-import { requestJson } from './http'
+import { requestJson } from './http';
 
 export function fetchDestinations() {
-  return requestJson('/api/destinations')
+  return requestJson('/destinations');
 }
 
 export function fetchRouteSummary() {
-  return requestJson('/api/route/summary')
+  return requestJson('/route/summary');
 }
 
 export function createDestination(payload) {
-  return requestJson('/api/destinations', {
+  return requestJson('/destinations', {
     method: 'POST',
-    body: JSON.stringify(payload)
-  })
+    body: JSON.stringify(payload),
+  });
 }
 
 export function updateDestination(id, payload) {
-  return requestJson(`/api/destinations/${id}`, {
+  return requestJson(`/destinations/${id}`, {
     method: 'PUT',
-    body: JSON.stringify(payload)
-  })
+    body: JSON.stringify(payload),
+  });
 }
 
 export function deleteDestination(id) {
-  return requestJson(`/api/destinations/${id}`, { method: 'DELETE' })
+  return requestJson(`/destinations/${id}`, { method: 'DELETE' });
 }
 
 export function reorderDestinations(ids) {
-  return requestJson('/api/destinations/reorder', {
+  return requestJson('/destinations/reorder', {
     method: 'PUT',
-    body: JSON.stringify({ ids })
-  })
-}
-
-export function fetchRouteLeg(from, to) {
-  return requestJson(`/api/route/leg?from=${from}&to=${to}`)
+    body: JSON.stringify({ ids }),
+  });
 }

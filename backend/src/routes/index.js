@@ -1,26 +1,55 @@
-import { Router } from 'express'
+import { Router } from 'express';
+import { asyncHandler } from '../utils/asyncHandler.js';
 import {
   createDestinationHandler,
   deleteDestinationHandler,
   editDestinationHandler,
   getDestinationByIdHandler,
   listDestinationsHandler,
-  reorderDestinationsHandler
-} from '../controllers/destinationController.js'
-import { routeLegHandler, routeSummaryHandler } from '../controllers/routeController.js'
+  reorderDestinationsHandler,
+} from '../controllers/destinationController.js';
+import {
+  routeLegHandler,
+  routeSummaryHandler,
+} from '../controllers/routeController.js';
+import {
+  requireCityBody,
+  requireIdsArrayBody,
+  requireDestinationIdParam,
+  requireRouteQuery,
+} from '../middleware/validation.js';
 
-const router = Router()
-router.get('/destinations/:id', getDestinationByIdHandler)
-router.get('/destinations', listDestinationsHandler)
+const router = Router();
+router.get(
+  '/destinations/:id',
+  requireDestinationIdParam,
+  asyncHandler(getDestinationByIdHandler)
+);
+router.get('/destinations', asyncHandler(listDestinationsHandler));
 
+router.post(
+  '/destinations',
+  requireCityBody,
+  asyncHandler(createDestinationHandler)
+);
+router.put(
+  '/destinations/reorder',
+  requireIdsArrayBody,
+  asyncHandler(reorderDestinationsHandler)
+);
+router.put(
+  '/destinations/:id',
+  requireDestinationIdParam,
+  requireCityBody,
+  asyncHandler(editDestinationHandler)
+);
+router.delete(
+  '/destinations/:id',
+  requireDestinationIdParam,
+  asyncHandler(deleteDestinationHandler)
+);
 
-router.post('/destinations', createDestinationHandler)
-router.put('/destinations/reorder', reorderDestinationsHandler)
-router.put('/destinations/:id', editDestinationHandler)
-router.delete('/destinations/:id', deleteDestinationHandler)
+router.get('/route/summary', asyncHandler(routeSummaryHandler));
+router.get('/route/leg', requireRouteQuery, asyncHandler(routeLegHandler));
 
-
-router.get('/route/summary', routeSummaryHandler)
-router.get('/route/leg', routeLegHandler)
-
-export default router
+export default router;
