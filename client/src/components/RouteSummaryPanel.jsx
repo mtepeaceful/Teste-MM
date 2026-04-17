@@ -29,14 +29,16 @@ export function RouteSummaryPanel({ loading, routeSummary }) {
 
   return (
     <>
-      <p>
-        <strong>Distância total:</strong>{' '}
-        {routeSummary.totalDistanceKm.toFixed(2)} km
-      </p>
-      <p>
-        <strong>Tempo total:</strong>{' '}
-        {formatMinutes(routeSummary.totalDurationMin)}
-      </p>
+      <div className="metrics-cards">
+        <div className="metric-card">
+          <p className="metric-label">Distância total</p>
+          <p className="metric-value">{routeSummary.totalDistanceKm.toFixed(2)} km</p>
+        </div>
+        <div className="metric-card">
+          <p className="metric-label">Tempo total</p>
+          <p className="metric-value">{formatMinutes(routeSummary.totalDurationMin)}</p>
+        </div>
+      </div>
       {routeSummary.legs.length === 0 ? (
         <p>
           Adicione pelo menos dois destinos para calcular a viagem completa.

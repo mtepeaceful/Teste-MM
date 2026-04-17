@@ -236,6 +236,32 @@ button:disabled {
   text-align: right;
 }
 
+.metrics-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.metric-card {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
 .loading-inline {
   display: flex;
   align-items: center;
@@ -299,7 +325,23 @@ button:disabled {
 
 @media (max-width: 700px) {
   .item {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .drag-handle {
+    margin-top: 2px;
+  }
+
+  .item-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .actions {
+    flex-basis: 100%;
+    margin-top: 8px;
   }
 
   .metrics {
